@@ -4,7 +4,7 @@ const GitRevisionPlugin = require('git-revision-webpack-plugin')
 const GitRevision = new GitRevisionPlugin()
 const buildDate = JSON.stringify(new Date().toLocaleString())
 const createThemeColorReplacerPlugin = require('./config/plugin.config')
-
+const dotenv = require('dotenv') 
 function resolve (dir) {
   return path.join(__dirname, dir)
 }
@@ -105,12 +105,27 @@ const vueConfig = {
     port: 8000
     // If you want to turn on the proxy, please remove the mockjs /src/main.jsL11
     // proxy: {
-    //   '/api': {
-    //     target: 'https://mock.ihx.me/mock/5baf3052f7da7e07e04a5116/antd-pro',
-    //     ws: false,
-    //     changeOrigin: true
-    //   }
-    // }
+       '/api': {
+         // i think we need to add other  .env files for securing the session keys 
+         // here will be the database api's.
+         target: '',
+         ws: false,
+         changeOrigin: true
+       }
+       '/api-alethio': {
+          target: ''
+          ws: true , 
+
+
+       }     
+       '/api-graph': {
+
+       }
+
+
+
+
+      }
   },
 
   // disable source map in production
@@ -118,7 +133,7 @@ const vueConfig = {
   lintOnSave: undefined,
   // babel-loader no-ignore node_modules/*
   transpileDependencies: []
-}
+
 
 // preview.pro.loacg.com only do not use in your production;
 if (process.env.VUE_APP_PREVIEW === 'true') {
